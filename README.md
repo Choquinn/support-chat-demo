@@ -26,6 +26,7 @@ Esta versão tem como objetivo **demonstrar habilidades técnicas, estrutura de 
 - HTML5
 - CSS3
 - JavaScript
+- NodeJS
 - Organização modular de arquivos
 - Boas práticas de front-end
 
