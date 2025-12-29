@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-overlay">
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <h2>Carregando conversas...</h2>
+        <p id="loading-progress">Aguarde enquanto preparamos tudo para você</p>
+      </div>
+    </div>
+
+    <!-- Add Menu -->
+    <div id="add-menu">
+      <div id="add-block">
+        <label for="add-name" class="add-label">Nome</label>
+        <input
+          type="text"
+          id="add-name"
+          class="add-field"
+          placeholder="Nome do contato"
+        />
+        <label for="add-number" class="add-label">Número</label>
+        <input
+          type="text"
+          id="add-number"
+          class="add-field"
+          placeholder="Número do contato"
+        />
+        <button class="add-button green" onclick="addContact()">
+          Adicionar contato
+        </button>
+        <button class="add-button red" onclick="openAdd()">Cancelar</button>
+      </div>
+    </div>
+    <!-- Delete menu -->
+    <div id="delete-menu">
+      <div id="delete-block">
+        <label id="delete-label">Usuários</label>
+        <select id="delete-sel" title="delete" name="delete">
+          <option value="">Escolha um usuário para deletar</option>
+          <div id="delete-options"></div>
+        </select>
+        <button class="del-button" onclick="deleteUser()">Deletar</button>
+        <button class="del-button white" onclick="cancelDelete()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu de Fechamento -->
+    <div id="close-menu">
+      <div id="close-block">
+        <h3 id="close-title">Opções de Fechamento</h3>
+        <button class="close-option success" onclick="closeWithSuccess()">
+          <span class="material-icons">check_circle</span>
+          Terminado com Sucesso
+        </button>
+        <button class="close-option timeout" onclick="closeWithTimeout()">
+          <span class="material-icons">schedule</span>
+          Tempo Limite Excedido
+        </button>
+        <button class="close-option no-message" onclick="closeWithoutMessage()">
+          <span class="material-icons">close</span>
+          Fechar sem Mensagem
+        </button>
+        <button class="close-option cancel" onclick="cancelCloseMenu()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Lateral -->
+    <div id="menu-header">
+      <div id="itens">
+        <div
+          id="ativos"
+          class="menu-header-options selected"
+          onclick="changeTab(1)"
+        >
+          <span id="ativos-sym" class="material-symbols-outlined">person</span>
+          <!-- <p class="header-text">Ativos</p> -->
+        </div>
+        <div id="na-fila" class="menu-header-options" onclick="changeTab(2)">
+          <span id="na-fila-sym" class="material-symbols-outlined">groups</span>
+          <!-- <p class="header-text">Na fila</p> -->
+        </div>
+        <div id="fechados" class="menu-header-options" onclick="changeTab(3)">
+          <span id="fechados-sym" class="material-symbols-outlined">close</span>
+          <!-- <p class="header-text">Fechados</p> -->
+        </div>
+        
+      </div>
+    </div>
+    <div id="menu">
+      <div id="conv-header">
+        <h1 id="chat-title-text">Chat</h1>
+        <p id="conv-counter">(<span id="new-convs">0</span>)</p>
+        <div id="add" class="searchbar" onclick="openAdd()">
+          <span id="add-sym" class="material-symbols-outlined">edit</span>
+        </div>
+        <div id="search">
+          <input
+            id="type-search"
+            type="text"
+            title="Pesquisar"
+            placeholder="Encontre uma conversa"
+          />
+          <span id="search-sym" class="material-symbols-outlined filled-icon"
+            >search</span
+          >
+        </div>
+      </div>
+      <!-- Config Menu -->
+      <div id="config-menu">
+        <button class="configbtn add" id="addBtn" onclick="addUser()">
+          Adicionar usuário
+        </button>
+        <button class="configbtn delete" id="deleteBtn" onclick="deleteMenu()">
+          Deletar usuário
+        </button>
+        <button class="configbtn logout" id="logoutBtn">Sair da conta</button>
+        <button class="configbtn exit" id="exit" onclick="quitSession()">
+          Sair
+        </button>
+      </div>
+
+      <!-- Lista de Chats -->
+      <div id="menu-chat-block">
+        <div class="menu-chats"></div>
+      </div>
+    </div>
+
+    <!-- Área do Chat -->
+    <div id="chat">
+      <!-- Header do Chat -->
+      <div id="chat-header">
+        <img
+          id="pfp"
+          class="user-pfp big"
+          src="https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg"
+          alt="User pfp"
+        />
+        <h2 id="client-name-header" class="client-name-header"></h2>
+        <div id="header-util">
+          <span id="change-status">
+            <button id="open-status" onclick="openStatus()">
+              <span id="mais-status-sym" class="material-symbols-outlined chat"
+                >forward</span
+              >
+            </button>
+          </span>
+          <span id="msg-sym" class="material-symbols-outlined chat"
+            >comment</span
+          >
+          <span id="msg-sym" class="material-symbols-outlined chat">bolt</span>
+          <span
+            id="pesq-chat-sym"
+            class="material-symbols-outlined chat"
+            onclick="expandContact()"
+            >search</span
+          >
+          <span
+            id="mais-sym"
+            class="material-symbols-outlined chat"
+            onclick="expandContact()"
+            >more_vert</span
+          >
+        </div>
+      </div>
+
+      <!-- Bloco de Chat -->
+      <div id="chat-block">
+        <div id="more-chat">
+          <div id="more-buttons"></div>
+        </div>
+        <div id="status-buttons"></div>
+        <div id="file">
+          <span id="close-attach-sym" class="material-icons">close</span>
+          <div id="file-info"></div>
+        </div>
+        <div id="auto-message-menu">
+          <span class="auto-message" data-message="Aviso de demora"
+            >Aviso de demora</span
+          >
+          <span
+            class="auto-message"
+            data-message="Olá! Como posso ajudá-lo hoje?"
+            >Saudação</span
+          >
+          <span
+            class="auto-message"
+            data-message="Aguarde um momento, por favor."
+            >Aguarde</span
+          >
+          <span
+            class="auto-message"
+            data-message="Já estou verificando isso para você."
+            >Verificando</span
+          >
+          <span
+            class="auto-message"
+            data-message="Obrigado por aguardar! Já tenho a resposta."
+            >Pronto</span
+          >
+          <span
+            class="auto-message"
+            data-message="Foi um prazer atendê-lo! Precisando, estamos à disposição."
+            >Encerramento</span
+          >
+        </div>
+        <div id="stickers-menu">
+          <div id="stickers-header">
+            <h3>Enviar Sticker</h3>
+            <span
+              id="close-stickers-sym"
+              class="material-icons"
+              onclick="closeStickerMenu()"
+              >close</span
+            >
+          </div>
+          <div id="stickers-upload">
+            <input
+              type="file"
+              id="sticker-input"
+              accept=".webp,.png,.jpg,.jpeg,image/webp,image/png,image/jpeg"
+              class="hidden-input"
+              title="Upload sticker"
+            />
+            <button
+              id="sticker-upload-btn"
+              class="sticker-btn upload"
+              onclick="document.getElementById('sticker-input').click()"
+            >
+              📤 Fazer Upload
+            </button>
+          </div>
+          <div id="stickers-list"></div>
+        </div>
+        <div id="emojis">
+          <div id="emoji-sticker-header">
+            <div
+              class="tab-option active"
+              id="emoji-tab"
+              onclick="switchToEmojis()"
+            >
+              <span class="material-icons">mood</span>
+              <span>Emojis</span>
+            </div>
+            <div
+              class="tab-option"
+              id="sticker-tab"
+              onclick="switchToStickers()"
+            >
+              <span class="material-icons">note</span>
+              <span>Figurinhas</span>
+            </div>
+          </div>
+          <div id="emoji-content"></div>
+          <div id="sticker-content" style="display: none"></div>
+        </div>
+        <div id="chat-history"></div>
+      </div>
+
+      <!-- Área de Digitação -->
+      <div id="type-area">
+        <span id="anexo-sym" class="material-icons">attach_file</span>
+        <span id="emoji-sym" class="material-icons" onclick="emojiWindow()"
+          >mood</span
+        >
+        <div id="type-block">
+          <input id="text" type="text" placeholder="Mensagem" />
+          <div id="util">
+            <!-- <span
+            id="sticker-sym"
+              class="material-icons"
+              onclick="openStickerMenu()"
+              title="Enviar sticker"
+              >collections</span
+            > -->
+            <span id="audio-sym" class="material-symbols-outlined" onclick="toggleAudioRecording()">mic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="JS/index.js" type="module"></script>
+  </body>
+</html>

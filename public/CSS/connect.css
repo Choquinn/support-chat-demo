@@ -1,0 +1,22 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#principal-block {
+    display: flex;
+    height: 24em;
+    width: fit-content;
+    background: #dfdfdf;
+    border-radius: 26px;
+    box-shadow: 10px 8px 18px #adadad;
+}
+
+#tutorial {
+    margin-right: 1em;
+    margin-top: 6em;
+}
+
+#qr {
+    margin: 6em 1.5em;
+}

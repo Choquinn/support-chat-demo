@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registrar - Chat</title>
+        <link rel="stylesheet" href="CSS/register.css">
+    </head>
+    <body>
+        <h2>Criar Conta</h2>
+        <input class="register-box" type="text" id="username" placeholder="Usuário" required><br>
+        <input 
+        class="register-box"
+        type="text" 
+        id="number" 
+        placeholder="Número (ex: 88940028922)" 
+        maxlength="11" 
+        pattern="[0-9]{11}"
+        required
+        ><br>
+        <input class="register-box" type="password" id="password" placeholder="Senha" required><br>
+        <div id="roles">
+            <input class="role" type="checkbox" id="suporte" name="role" value="1" placeholder="suporte">
+            <label for="suporte">Suporte</label><br>
+            <input class="role" type="checkbox" id="treinamento" name="role" value="2" placeholder="treinamento">
+            <label for="treinamento">Treinamento</label><br>
+            <input class="role" type="checkbox" id="at" name="role" value="3" placeholder="at">
+            <label for="at">Assistência Técnica</label><br>
+            <input class="role" type="checkbox" id="vendas" name="role" value="4" placeholder="vendas">
+            <label for="vendas">Vendas</label><br>
+            <input class="role" type="checkbox" id="admin" name="role" value="5" placeholder="admin">
+            <label for="admin">Administrador</label>
+        </div><br><br>
+        <button id="register" onclick="register()">Registrar</button>
+
+        <script src="JS/register.js"></script>
+    </body>
+</html>

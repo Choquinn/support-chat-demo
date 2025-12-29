@@ -1,0 +1,37 @@
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  height: 3em;
+  border: 1px #7f7f7f solid;
+  width: 14em;
+  font-family: "Inter", sans-serif;
+  padding-left: 12px;
+  border-radius: 2em;
+}
+
+#login {
+  width: 6em;
+  height: 3em;
+  border-radius: 2em;
+  border: 1px #444 solid;
+  cursor: pointer;
+}
+
+#login:hover {
+  color: #FFF;
+  background-color: #000;
+  border: 1px #7f7f7f solid;
+  cursor: pointer;
+}
+
+#rememberMe {
+  cursor: pointer;
+}

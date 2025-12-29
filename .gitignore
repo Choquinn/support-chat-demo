@@ -1,0 +1,69 @@
+# =========================
+# Node.js padrão
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.DS_Store
+
+# =========================
+# Ambiente e credenciais
+# =========================
+.env
+.env.local
+.env.*.local
+
+# =========================
+# Logs e caches
+# =========================
+logs/
+*.log
+*.tmp
+tmp/
+temp/
+.pids/
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Uploads e arquivos gerados
+# =========================
+uploads/
+public/profile-pics/
+profile_cache/
+public/uploads/
+.tmp.drivedownload/
+.tmp.driveupload/
+
+# =========================
+# Sistema e editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# =========================
+# Arquivos de build/output
+# =========================
+dist/
+build/
+coverage/
+.cache/
+out/
+
+# =========================
+# Arquivos específicos do Baileys
+# =========================
+auth_info_baileys/
+auth/
+session.data.json
+*.session.json
+
+/.env
+public/stickers
